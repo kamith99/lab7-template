@@ -5,7 +5,7 @@ class Time:
         data attributes: hour, minute, second
         function attributes: __init__, __str__, __repr__
                             time_to_sec, format_time,
-                            change_time, sum_time
+                            change_time, sum_time, __add__
     """
     def __init__(self,hour=12,minute=0,second=0):
         """constructor for time object""" 
@@ -18,7 +18,7 @@ class Time:
         return f'{self.hour:02d}:{self.minute:02d}:{self.second:02d}'
 
     def sum_times(self, t2):
-        """Add two time objests and return the sum."""
+        """Add two time objects and return the sum."""
         self_sec = self.time_to_sec()
         t2_sec = t2.time_to_sec()
         sum = sec_to_time(self_sec + t2_sec)
@@ -32,7 +32,7 @@ class Time:
 
     def time_to_sec(self):
         '''convert a time object to a single integer representing the 
-        number of seconds from mid-night'''
+        number of seconds from midnight'''
         minutes = self.hour * 60 + self.minute
         seconds = minutes * 60 + self.second
         return seconds
@@ -45,6 +45,14 @@ class Time:
         if self.minute >= 60 or self.second >= 60 or self.hour >= 24:
             return False
         return True
+
+    def __add__(self, t2):
+        """Overload the '+' operator to add two time objects."""
+        return self.sum_times(t2)
+
+    def __repr__(self):
+        """Return a string representation of the time object"""
+        return f'{self.format_time()}'
 
 def sec_to_time(seconds):
     '''convert a given number of seconds to a time object in 

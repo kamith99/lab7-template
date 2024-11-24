@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# Student ID:  bkamith@myseneca.ca
+# Student ID: bkamith@myseneca.ca
 class Time:
     """Simple object type for time of the day.
     data attributes: hour, minute, second
@@ -33,6 +33,32 @@ def sum_times(t1, t2):
         sum.hour %= 24
 
     return sum
+
+def change_time(time, seconds):
+    """Modify the time object by adding or subtracting seconds."""
+    time.second += seconds
+
+    while time.second >= 60:
+        time.second -= 60
+        time.minute += 1
+    while time.second < 0:
+        time.second += 60
+        time.minute -= 1
+
+    while time.minute >= 60:
+        time.minute -= 60
+        time.hour += 1
+    while time.minute < 0:
+        time.minute += 60
+        time.hour -= 1
+        
+    while time.hour >= 24:
+        time.hour -= 24
+    while time.hour < 0:
+        time.hour += 24
+
+    return None
+
 
 def valid_time(t):
     """check for the validity of the time object attributes:
